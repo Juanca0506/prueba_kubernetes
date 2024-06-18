@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prueba_infrastructure_engineer
+  namespace: tech.prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app_python
+    metadata:
+      labels:
+        app: app_python
+    spec:
+      containers:
+      - name: prueba_infrastructure_engineer
+        image: https://hub.docker.com/repository/docker/jucalopeor/prueba1_python/general
+        resources:
+          limite:
+            memory: "64Mi"
+            cpu: "250m"
+          requests: 
+            memory: "64Mi"
+            cpu: 250m
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ENV
+          value: "dev"
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 20

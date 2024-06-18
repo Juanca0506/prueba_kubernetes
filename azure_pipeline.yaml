@@ -1,0 +1,68 @@
+trigger:
+- main
+
+variables:
+  rdockerServiceConnection: ''
+  rimageName: 'https://hub.docker.com/repository/docker/jucalopeor/prueba1_python/general'
+  renv: ''
+  rAzureResourceManager: ''
+  rAzureSubscription: ''
+  rResourceGroup: ''
+  rK8sCluster: ''
+  rnamespace: 'tech.prod'
+  tag: '$(Build.BuildId)'
+
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: PythonVersion
+      inputs:
+        versionSpec: '3.x'
+        addToPath: true
+
+    - script: |
+        python -m pip install --upgrade pip
+      displayName: 'Install dependencies'
+
+    - script: |
+        pytest
+      displayName: 'Run unit tests'
+
+    - task: Docker
+      inputs:
+        containerRegistry: '$(rdockerServiceConnection)'
+        repository: '$(rimageName)'
+        command: 'buildAndPush'
+        Dockerfile: '**/dockerfile'
+        tags: |
+          $(tag)
+          latest
+
+- stage: Deploy
+  jobs:
+  - deployment: Deploy
+    environment: '$(renv)'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Kubernetes
+            inputs:
+              connectionType: '$(rAzureResourceManager)'
+              azureSubscription: '$(rAzureSubscription)'
+              azureResourceGroup: '$(rResourceGroup)'
+              kubernetesCluster: '$(rK8sCluster)r'
+              namespace: '$(rnamespace)'
+              command: 'apply'
+              useConfigurationFile: true
+              configuration: 
+                - 'create_pod_k8s.yaml'
+                - 'template_service_k8s.yaml'
+                - 'create_red_interna.yaml'
+

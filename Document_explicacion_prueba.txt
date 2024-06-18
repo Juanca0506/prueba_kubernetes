@@ -1,0 +1,32 @@
+Detalles sobre la realización de la prueba de infrastructure_engineer
+
+
+1- En el template "azure_pipeline.yaml" se debe de agregar las los datos a las variables que se dejaron en comillas simples '' antes de realizar el despliegue, dado que esos datos no los tengo a mi alcance, por tal motivo se requiere agregarlos.
+
+2- En el template "create_pod_k8s.yaml" se se utilizaron los recursos directamente ya que considero que el limite de memoria y cpu son los adecuados para poder crearse el pod y ejecutar la aplicación correctamente. Al igual, que se agrego el readiness y liveness para que cuando se cree el pod valide el estado del contenedor, si puede recibir trafico y que este funcionando correctamente para poderlo utilizar.
+
+3- Para la prueba, utilice un código simple de Python donde me mostrara a través de una pantalla interativa un mensaje de que es una aplicación de prueba.
+
+4- En el Docker file, definí la ubicación donde voy a copiar mi código de prueba y los comando simples de actualización de sistema operativo y la instalación del tablero interactivo para que pueda ejecutar la aplicación sin inconvenientes. La imagen fue desplegada y subida al repositorio personal de Docker Hub bajo la url "https://hub.docker.com/repository/docker/jucalopeor/prueba1_python/general"
+
+5- Para la optimización del tamaño de las imágenes en Cloudflare utilice el medio de realizarlo por medio del lenguaje de utilización JavaScript, ya que para realizar esto de manera manual dentro del entorno me solicitaban una suscripción la cual me generaba un valor económico, por tal motivo opte por el desarrollo del código que este se puede ejecutar dentro de Cloudflare y puede optimizar las imágenes para tener mayor rendimiento de utilización.
+
+6- Para el diagrama de mejoramiento de observabilidad de la aplicación, realice un diagrama de flujo puesto que no se tenia muy claro el diseño de arquitectura de la aplicación. Dado el caso de tener que diseñar el diagrama a nivel de arquitectura, lo podría realizar sin ningún inconveniente.
+
+
+EXPLICACION DEL DIAGRAMA DE FLUJO
+
+Kubernetes Cluster: Donde se despliegan los microservicios.
+
+Microservicios: Cada servicio puede exponer métricas para Prometheus y logs para Loki.
+
+Prometheus: Sistema de monitoreo y alerta.Almacena las métricas y permite la ejecución de consultas sobre ellas.
+
+Loki: Sistema de agregación y consulta de logs. Al igual que recoge y almacena los logs de los microservicios. Permite realizar consultas sobre los logs almacenados.
+
+Grafana: Plataforma de visualización de datos donde see conecta a Prometheus y Loki para mostrar dashboards con métricas y logs. Permite crear visualizaciones y alertas basadas en los datos recogidos.
+
+
+Cualquier duda de la solución planteada durante la prueba, me pueden contactar a través de mi correo electrónico camilo5.1030@gmail.com o a mi teléfono celular 3046396980.
+
+Gracias por la atención prestada. Un fuerte saludo.
