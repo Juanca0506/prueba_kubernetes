@@ -6,7 +6,7 @@ LABEL mantainer="Juan Camilo Lopera"
 
 WORKDIR /usr/src/app_prueba
 
-COPY ./app_python.py /usr/src/app_prueba
+COPY app/app_python.py /usr/src/app_prueba
 
 RUN apt-get update && apt-get install -y python3-tk && pip install tk && apt-get install -y xvfb
 

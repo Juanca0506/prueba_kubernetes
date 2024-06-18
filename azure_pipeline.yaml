@@ -62,7 +62,7 @@ stages:
               command: 'apply'
               useConfigurationFile: true
               configuration: 
-                - 'create_pod_k8s.yaml'
-                - 'template_service_k8s.yaml'
-                - 'create_red_interna.yaml'
+                - 'template/create_pod_k8s.yaml'
+                - 'template/template_service_k8s.yaml'
+                - 'template/create_red_interna.yaml'
 

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prueba_infrastructure_engineer
+  name: prueba_c
   namespace: tech.prod
 spec:
   replicas: 1
